@@ -1,16 +1,43 @@
-# teste
+# Aplicativo mobile para as Unidades Básicas de Saúde (UBS) do município de Itajaí (SC)
 
-A new Flutter project.
+Um aplicativo Flutter para gerenciar agendamentos de consultas médicas e vacinas, visualizar
+medicamentos disponíveis, serviços de saúde, e informações de contato das unidades básicas de
+saúde (UBS).
 
-## Getting Started
+## Funcionalidades
 
-This project is a starting point for a Flutter application.
+- **Cadastro de Usuário**: Permite que novos usuários se registrem com dados pessoais e selecionem a
+  UBS de preferência.
+- **Login/Logout**: Autenticação segura para acesso ao sistema.
+- **Agendamento de Consultas e Vacinas**: Interface para escolher tipo de consulta/vacina, data e
+  horário, com salvamento em banco de dados.
+- **Notificações**: Notifica o usuário quando uma consulta ou vacina está marcada para o dia
+  seguinte.
+- **Serviços e Medicamentos**: Lista de serviços de saúde e medicamentos disponíveis em cada unidade
+  básica de saúde.
+- **Informações de Contato**: Detalhes e localização das unidades básicas de saúde com dados de
+  contato.
 
-A few resources to get you started if this is your first Flutter project:
+## Instalação
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. Clone o repositório
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+git clone https://github.com/halangbacca/how-viii-tdd-mobile.git
+```
+
+2. Instale as dependências
+
+```
+flutter pub get
+```
+
+4. Execute o projeto
+
+```
+flutter run
+```
+
+
+
+
