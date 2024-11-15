@@ -18,12 +18,14 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,15 +36,15 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => SplashScreen(),
-          '/login': (context) => LoginScreen(),
-          '/register': (context) => UserRegistrationScreen(),
+          '/': (context) => const SplashScreen(),
+          '/login': (context) => const LoginScreen(),
+          '/register': (context) => const UserRegistrationScreen(),
           '/home': (context) => const HomeScreen(),
-          '/appointment': (context) => AppointmentScreen(),
-          '/vaccine': (context) => VaccineAppointmentScreen(),
+          '/appointment': (context) => const AppointmentScreen(),
+          '/vaccine': (context) => const VaccineAppointmentScreen(),
           '/services': (context) => HealthUnitServicesScreen(),
-          '/address': (context) => HealthUnitContactScreen(),
-          '/medications': (context) => MedicationsScreen(),
+          '/address': (context) => const HealthUnitContactScreen(),
+          '/medications': (context) => const MedicationsScreen(),
           '/appointments_list': (context) =>
               const AppointmentListScreen(appointments: []),
         });

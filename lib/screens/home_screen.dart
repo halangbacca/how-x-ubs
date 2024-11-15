@@ -8,7 +8,7 @@ import 'vaccine_list_screen.dart';
 import 'notification_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   // Métodos para buscar dados do usuário (mantidos)
   Future<List<Map<String, dynamic>>> _fetchUserAppointments(BuildContext context) async {

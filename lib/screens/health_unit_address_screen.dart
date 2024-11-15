@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HealthUnitContactScreen extends StatefulWidget {
-  HealthUnitContactScreen({Key? key}) : super(key: key);
+  const HealthUnitContactScreen({super.key});
 
   @override
   _HealthUnitContactScreenState createState() =>
@@ -283,7 +283,7 @@ class _HealthUnitContactScreenState extends State<HealthUnitContactScreen> {
               controller: _searchController,
               decoration: InputDecoration(
                 labelText: 'Buscar Unidade de Saúde',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.clear),
                   onPressed: () {

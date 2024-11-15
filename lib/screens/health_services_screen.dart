@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HealthUnitServicesScreen extends StatelessWidget {
-  HealthUnitServicesScreen({Key? key}) : super(key: key);
+  HealthUnitServicesScreen({super.key});
 
   // Lista de serviços com nome e ícone para cada serviço.
   final List<Map<String, dynamic>> _services = [

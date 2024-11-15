@@ -4,8 +4,7 @@ class AppointmentListScreen extends StatelessWidget {
   final List<Map<String, dynamic>> appointments;
 
   // Construtor que recebe a lista de consultas.
-  const AppointmentListScreen({Key? key, required this.appointments})
-      : super(key: key);
+  const AppointmentListScreen({super.key, required this.appointments});
 
   @override
   Widget build(BuildContext context) {

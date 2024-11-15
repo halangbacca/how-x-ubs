@@ -5,6 +5,8 @@ import '../db/database_helper.dart';
 import '../providers/auth_provider.dart';
 
 class VaccineAppointmentScreen extends StatefulWidget {
+  const VaccineAppointmentScreen({super.key});
+
   @override
   _VaccineAppointmentScreenState createState() => _VaccineAppointmentScreenState();
 }

@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 
 class UserRegistrationScreen extends StatefulWidget {
+  const UserRegistrationScreen({super.key});
+
   @override
   _UserRegistrationScreenState createState() => _UserRegistrationScreenState();
 }

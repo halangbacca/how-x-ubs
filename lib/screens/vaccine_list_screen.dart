@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 class VaccineAppointmentListScreen extends StatelessWidget {
   final List<Map<String, dynamic>> vaccineAppointments;
 
-  // Construtor que recebe a lista de agendamentos de vacinas.
-  const VaccineAppointmentListScreen({Key? key, required this.vaccineAppointments})
-      : super(key: key);
+  const VaccineAppointmentListScreen({super.key, required this.vaccineAppointments});
 
   @override
   Widget build(BuildContext context) {

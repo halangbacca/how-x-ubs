@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class NotificationsScreen extends StatelessWidget {
   final List<Map<String, String>> notifications;
 
-  NotificationsScreen({Key? key, required this.notifications}) : super(key: key);
+  const NotificationsScreen({super.key, required this.notifications});
 
   @override
   Widget build(BuildContext context) {

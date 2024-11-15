@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MedicationsScreen extends StatefulWidget {
+  const MedicationsScreen({super.key});
+
   @override
   _MedicationsScreenState createState() => _MedicationsScreenState();
 }
@@ -145,9 +147,9 @@ class _MedicationsScreenState extends State<MedicationsScreen> {
               controller: _searchController,
               decoration: InputDecoration(
                 labelText: 'Buscar Medicação',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.clear),
+                  icon: const Icon(Icons.clear),
                   onPressed: () {
                     setState(() {
                       _searchController.clear();
@@ -166,7 +168,7 @@ class _MedicationsScreenState extends State<MedicationsScreen> {
             // Exibição da lista de medicações em cards
             Expanded(
               child: filteredMedications.isEmpty
-                  ? Center(
+                  ? const Center(
                 child: Text(
                   'Nenhuma medicação encontrada.',
                   style: TextStyle(fontSize: 18),

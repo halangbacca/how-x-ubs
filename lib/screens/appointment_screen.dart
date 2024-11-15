@@ -5,6 +5,8 @@ import '../db/database_helper.dart';
 import '../providers/auth_provider.dart';
 
 class AppointmentScreen extends StatefulWidget {
+  const AppointmentScreen({super.key});
+
   @override
   _AppointmentScreenState createState() => _AppointmentScreenState();
 }
