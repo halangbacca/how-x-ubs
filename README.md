@@ -32,7 +32,7 @@ git clone https://github.com/halangbacca/how-viii-tdd-mobile.git
 flutter pub get
 ```
 
-4. Execute o projeto
+3. Execute o projeto
 
 ```
 flutter run
