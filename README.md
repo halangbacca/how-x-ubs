@@ -23,7 +23,7 @@ saúde (UBS).
 1. Clone o repositório
 
 ```
-git clone https://github.com/halangbacca/how-viii-tdd-mobile.git
+git clone https://github.com/halangbacca/how-ix-mobile
 ```
 
 2. Instale as dependências
