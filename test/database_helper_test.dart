@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:teste/db/database_helper.dart';
+import 'package:gestao_ubs/db/database_helper.dart';
 
 void main() {
   sqfliteFfiInit();

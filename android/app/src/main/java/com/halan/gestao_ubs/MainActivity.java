@@ -1,4 +1,4 @@
-package com.example.teste;
+package com.halan.gestao_ubs;
 
 import io.flutter.embedding.android.FlutterActivity;
 
