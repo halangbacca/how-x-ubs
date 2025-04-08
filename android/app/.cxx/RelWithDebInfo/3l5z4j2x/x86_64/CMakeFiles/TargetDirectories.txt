@@ -1,0 +1,2 @@
+/home/halan/Área de trabalho/how-ix-mobile/android/app/.cxx/RelWithDebInfo/3l5z4j2x/x86_64/CMakeFiles/edit_cache.dir
+/home/halan/Área de trabalho/how-ix-mobile/android/app/.cxx/RelWithDebInfo/3l5z4j2x/x86_64/CMakeFiles/rebuild_cache.dir
