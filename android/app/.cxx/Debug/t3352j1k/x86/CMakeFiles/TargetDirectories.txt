@@ -1,0 +1,2 @@
+/home/halan/Área de trabalho/how-ix-mobile/android/app/.cxx/Debug/t3352j1k/x86/CMakeFiles/edit_cache.dir
+/home/halan/Área de trabalho/how-ix-mobile/android/app/.cxx/Debug/t3352j1k/x86/CMakeFiles/rebuild_cache.dir

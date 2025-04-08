@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/home/halan/.flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/halan/.android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/home/halan/Área de trabalho/how-ix-mobile/android/app/.cxx/Debug/t3352j1k/arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/halan/.android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/home/halan/Área de trabalho/how-ix-mobile/android/app/.cxx/Debug/t3352j1k/arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}
