@@ -55,10 +55,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-        centerTitle: true,
-      ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -134,21 +130,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 _isLoading
                     ? const CircularProgressIndicator()
                     : SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => _login(context),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () => _login(context),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: const Text(
+                            'Entrar',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
                       ),
-                    ),
-                    child: const Text(
-                      'Entrar',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                ),
                 const SizedBox(height: 16),
 
                 // Link para criar uma nova conta

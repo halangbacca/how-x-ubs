@@ -5,14 +5,15 @@ class AuthProvider with ChangeNotifier {
   final DatabaseHelper _databaseHelper = DatabaseHelper();
 
   bool _isAuthenticated = false;
-  int? _userId; // Armazena o ID do usuário logado
+  int? _userId;
   String? _loggedUserEmail;
 
   bool get isAuthenticated => _isAuthenticated;
-  int? get userId => _userId; // Getter para o ID do usuário
+
+  int? get userId => _userId;
+
   String? get loggedUserEmail => _loggedUserEmail;
 
-  /// Registrar um novo usuário com e-mail e senha.
   Future<bool> registerUser(Map<String, dynamic> usuario) async {
     try {
       await _databaseHelper.insertUser(usuario);
@@ -23,19 +24,18 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  /// Fazer login com e-mail e senha.
   Future<bool> login(String email, String senha) async {
     try {
       final user = await _databaseHelper.getUserByEmail(email);
 
       if (user != null && user['password'] == senha) {
         _isAuthenticated = true;
-        _userId = user['id']; // Armazena o ID do usuário
+        _userId = user['id'];
         _loggedUserEmail = email;
         notifyListeners();
         return true;
       } else {
-        return false; // Login falhou
+        return false;
       }
     } catch (e) {
       print('Erro no login: $e');
@@ -43,7 +43,6 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  /// Sair da sessão.
   void logout() {
     _isAuthenticated = false;
     _userId = null;

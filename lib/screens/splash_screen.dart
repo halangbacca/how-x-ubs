@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             const SizedBox(height: 20),
             const Text(
-              'Unidade Básica de Saúde',
+              'UBS+',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

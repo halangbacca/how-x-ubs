@@ -11,6 +11,7 @@ import 'screens/appointment_screen.dart';
 import 'screens/appointment_list_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/splash_screen.dart';
+import 'screens/symptom_check_screen.dart';
 
 void main() {
   runApp(
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Sistema de Saúde',
+        title: 'UBS+',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.teal,
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
           '/services': (context) => HealthUnitServicesScreen(),
           '/address': (context) => const HealthUnitContactScreen(),
           '/medications': (context) => const MedicationsScreen(),
+          '/symptom-check': (context) => const SymptomCheckScreen(),
           '/appointments_list': (context) =>
               const AppointmentListScreen(appointments: []),
         });

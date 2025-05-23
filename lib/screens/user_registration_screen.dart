@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../providers/auth_provider.dart';
 
 class UserRegistrationScreen extends StatefulWidget {
@@ -21,6 +23,14 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
   final _confirmPasswordController = TextEditingController();
   final _addressController = TextEditingController();
   String? _selectedUnit;
+
+  final _cpfMaskFormatter = MaskTextInputFormatter(mask: '###.###.###-##', filter: {"#": RegExp(r'[0-9]')});
+  final _dateMaskFormatter = MaskTextInputFormatter(mask: '##/##/####', filter: {"#": RegExp(r'[0-9]')});
+  final _phoneMaskFormatter = MaskTextInputFormatter(
+    mask: '(##) #####-####',
+    filter: {"#": RegExp(r'[0-9]')},
+    type: MaskAutoCompletionType.lazy,
+  );
 
   final List<String> _healthUnits = [
     'Centro-Vila', 'Fazenda', 'Praia Brava', 'Bambuzal', 'Imaruí', 'São João I',
@@ -65,140 +75,113 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cadastro de Usuário'),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              const SizedBox(height: 24),
-              Icon(
-                Icons.person_add,
-                color: Theme.of(context).primaryColor,
-                size: 80,
-              ),
-              const SizedBox(height: 24),
-              const Text(
-                'Registrar Novo Usuário',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const SizedBox(height: 24),
+                Icon(Icons.person_add, color: Theme.of(context).primaryColor, size: 80),
+                const SizedBox(height: 24),
+                const Text('Registrar Novo Usuário', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 32),
+
+                _buildTextField(
+                  controller: _nameController,
+                  labelText: 'Nome Completo',
+                  icon: Icons.person,
+                  validator: (value) => value == null || value.isEmpty ? 'Insira seu nome completo' : null,
                 ),
-              ),
-              const SizedBox(height: 32),
-
-              _buildTextField(
-                controller: _nameController,
-                labelText: 'Nome Completo',
-                icon: Icons.person,
-                validator: (value) =>
-                value == null || value.isEmpty ? 'Insira seu nome completo' : null,
-              ),
-              _buildTextField(
-                controller: _birthDateController,
-                labelText: 'Data de Nascimento',
-                icon: Icons.cake,
-                keyboardType: TextInputType.datetime,
-                validator: (value) =>
-                value == null || value.isEmpty ? 'Insira sua data de nascimento' : null,
-              ),
-              _buildTextField(
-                controller: _cpfController,
-                labelText: 'CPF',
-                icon: Icons.credit_card,
-                keyboardType: TextInputType.number,
-                validator: (value) =>
-                value == null || value.isEmpty ? 'Insira seu CPF' : null,
-              ),
-              _buildTextField(
-                controller: _phoneController,
-                labelText: 'Telefone',
-                icon: Icons.phone,
-                keyboardType: TextInputType.phone,
-              ),
-              _buildTextField(
-                controller: _emailController,
-                labelText: 'E-mail',
-                icon: Icons.email,
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) =>
-                value == null || value.isEmpty ? 'Insira seu e-mail' : null,
-              ),
-              _buildTextField(
-                controller: _cnsController,
-                labelText: 'Cartão SUS (CNS)',
-                icon: Icons.card_membership,
-              ),
-              _buildTextField(
-                controller: _addressController,
-                labelText: 'Endereço',
-                icon: Icons.home,
-              ),
-              const SizedBox(height: 16),
-
-              DropdownButtonFormField<String>(
-                value: _selectedUnit,
-                decoration: InputDecoration(
-                  labelText: 'Unidade Básica de Saúde',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+                _buildTextField(
+                  controller: _birthDateController,
+                  labelText: 'Data de Nascimento',
+                  icon: Icons.cake,
+                  keyboardType: TextInputType.datetime,
+                  inputFormatters: [_dateMaskFormatter],
+                  validator: (value) => value == null || value.isEmpty ? 'Insira sua data de nascimento' : null,
+                ),
+                _buildTextField(
+                  controller: _cpfController,
+                  labelText: 'CPF',
+                  icon: Icons.credit_card,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [_cpfMaskFormatter],
+                  validator: (value) => value == null || value.isEmpty ? 'Insira seu CPF' : null,
+                ),
+                _buildTextField(
+                  controller: _phoneController,
+                  labelText: 'Telefone',
+                  icon: Icons.phone,
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [_phoneMaskFormatter],
+                ),
+                _buildTextField(
+                  controller: _emailController,
+                  labelText: 'E-mail',
+                  icon: Icons.email,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) => value == null || value.isEmpty ? 'Insira seu e-mail' : null,
+                ),
+                _buildTextField(
+                  controller: _cnsController,
+                  labelText: 'Cartão SUS (CNS)',
+                  icon: Icons.card_membership,
+                ),
+                _buildTextField(
+                  controller: _addressController,
+                  labelText: 'Endereço',
+                  icon: Icons.home,
+                ),
+                const SizedBox(height: 16),
+                DropdownButtonFormField<String>(
+                  value: _selectedUnit,
+                  decoration: InputDecoration(
+                    labelText: 'Unidade Básica de Saúde',
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                   ),
+                  items: _healthUnits.map((String unit) {
+                    return DropdownMenuItem<String>(
+                      value: unit,
+                      child: Text(unit),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() => _selectedUnit = value);
+                  },
+                  validator: (value) => value == null ? 'Selecione uma unidade de saúde' : null,
                 ),
-                items: _healthUnits.map((String unit) {
-                  return DropdownMenuItem<String>(
-                    value: unit,
-                    child: Text(unit),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedUnit = value;
-                  });
-                },
-                validator: (value) =>
-                value == null ? 'Selecione uma unidade de saúde' : null,
-              ),
-              const SizedBox(height: 16),
-
-              _buildTextField(
-                controller: _passwordController,
-                labelText: 'Senha',
-                icon: Icons.lock,
-                obscureText: true,
-                validator: (value) =>
-                value == null || value.length < 6 ? 'A senha deve ter pelo menos 6 caracteres' : null,
-              ),
-              _buildTextField(
-                controller: _confirmPasswordController,
-                labelText: 'Confirmar Senha',
-                icon: Icons.lock_outline,
-                obscureText: true,
-                validator: (value) =>
-                value != _passwordController.text ? 'As senhas não coincidem' : null,
-              ),
-              const SizedBox(height: 32),
-
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => _registerUser(context),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                const SizedBox(height: 16),
+                _buildTextField(
+                  controller: _passwordController,
+                  labelText: 'Senha',
+                  icon: Icons.lock,
+                  obscureText: true,
+                  validator: (value) => value == null || value.length < 6 ? 'A senha deve ter pelo menos 6 caracteres' : null,
+                ),
+                _buildTextField(
+                  controller: _confirmPasswordController,
+                  labelText: 'Confirmar Senha',
+                  icon: Icons.lock_outline,
+                  obscureText: true,
+                  validator: (value) => value != _passwordController.text ? 'As senhas não coincidem' : null,
+                ),
+                const SizedBox(height: 32),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => _registerUser(context),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
-                  ),
-                  child: const Text(
-                    'Registrar',
-                    style: TextStyle(fontSize: 16),
+                    child: const Text('Registrar', style: TextStyle(fontSize: 16)),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 24),
+              ],
+            ),
           ),
         ),
       ),
@@ -212,6 +195,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
     TextInputType keyboardType = TextInputType.text,
     bool obscureText = false,
     String? Function(String?)? validator,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
@@ -219,11 +203,10 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
         controller: controller,
         keyboardType: keyboardType,
         obscureText: obscureText,
+        inputFormatters: inputFormatters,
         decoration: InputDecoration(
           labelText: labelText,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           prefixIcon: Icon(icon),
         ),
         validator: validator,

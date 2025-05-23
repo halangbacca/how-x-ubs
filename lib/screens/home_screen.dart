@@ -6,12 +6,13 @@ import '../db/database_helper.dart';
 import 'appointment_list_screen.dart';
 import 'vaccine_list_screen.dart';
 import 'notification_screen.dart';
+import 'symptom_check_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  // Métodos para buscar dados do usuário (mantidos)
-  Future<List<Map<String, dynamic>>> _fetchUserAppointments(BuildContext context) async {
+  Future<List<Map<String, dynamic>>> _fetchUserAppointments(
+      BuildContext context) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final userId = authProvider.userId;
     if (userId != null) {
@@ -20,7 +21,8 @@ class HomeScreen extends StatelessWidget {
     return [];
   }
 
-  Future<List<Map<String, dynamic>>> _fetchUserVaccineAppointments(BuildContext context) async {
+  Future<List<Map<String, dynamic>>> _fetchUserVaccineAppointments(
+      BuildContext context) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final userId = authProvider.userId;
     if (userId != null) {
@@ -35,7 +37,8 @@ class HomeScreen extends StatelessWidget {
       final tomorrow = DateTime.now().add(const Duration(days: 1));
       final formattedDate = DateFormat('yyyy-MM-dd').format(tomorrow);
 
-      final upcomingAppointments = await db.getAppointmentsByDate(formattedDate);
+      final upcomingAppointments =
+          await db.getAppointmentsByDate(formattedDate);
       final upcomingVaccines = await db.getVaccinesByDate(formattedDate);
 
       List<Map<String, String>> notifications = [];
@@ -43,14 +46,16 @@ class HomeScreen extends StatelessWidget {
       for (var appointment in upcomingAppointments) {
         notifications.add({
           'title': 'Lembrete de Consulta',
-          'body': 'Você tem uma consulta marcada para amanhã às ${appointment['horario']}.',
+          'body':
+              'Você tem uma consulta marcada para amanhã às ${appointment['horario']}.',
         });
       }
 
       for (var vaccine in upcomingVaccines) {
         notifications.add({
           'title': 'Lembrete de Vacinação',
-          'body': 'Você tem uma vacinação marcada para amanhã às ${vaccine['horario']}.',
+          'body':
+              'Você tem uma vacinação marcada para amanhã às ${vaccine['horario']}.',
         });
       }
 
@@ -61,11 +66,30 @@ class HomeScreen extends StatelessWidget {
     }
   }
 
+  Future<String> _loadUserUBS(BuildContext context) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final userId = authProvider.userId;
+    if (userId != null) {
+      final db = DatabaseHelper();
+      final user = await db.getUserById(userId);
+      return user?['health_unit'] ?? 'UBS não definida';
+    }
+    return 'UBS não definida';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tela Principal'),
+        title: FutureBuilder<String>(
+          future: _loadUserUBS(context),
+          builder: (context, snapshot) {
+            final ubs = snapshot.data ?? 'UBS não definida';
+            return Text("UBS $ubs",
+              style: const TextStyle(fontSize: 20),
+            );
+          },
+        ),
         centerTitle: true,
         actions: [
           IconButton(
@@ -75,7 +99,8 @@ class HomeScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => NotificationsScreen(notifications: notifications),
+                  builder: (context) =>
+                      NotificationsScreen(notifications: notifications),
                 ),
               );
             },
@@ -83,18 +108,19 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              final authProvider = Provider.of<AuthProvider>(context, listen: false);
+              final authProvider =
+                  Provider.of<AuthProvider>(context, listen: false);
               authProvider.logout();
               Navigator.pushReplacementNamed(context, '/login');
             },
           ),
         ],
       ),
-      body: Center( // Center para centralizar a grade
+      body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: GridView.count(
-            shrinkWrap: true, // Permite que o GridView ocupe o espaço necessário
+            shrinkWrap: true,
             crossAxisCount: 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
@@ -114,7 +140,8 @@ class HomeScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AppointmentListScreen(appointments: appointments),
+                      builder: (context) =>
+                          AppointmentListScreen(appointments: appointments),
                     ),
                   );
                 },
@@ -130,7 +157,8 @@ class HomeScreen extends StatelessWidget {
                 title: 'Próximas Vacinas',
                 icon: Icons.event_available,
                 onTap: () async {
-                  final vaccineAppointments = await _fetchUserVaccineAppointments(context);
+                  final vaccineAppointments =
+                      await _fetchUserVaccineAppointments(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -159,6 +187,17 @@ class HomeScreen extends StatelessWidget {
                 icon: Icons.location_on,
                 onTap: () => Navigator.pushNamed(context, '/address'),
               ),
+              _buildOptionCard(
+                context,
+                title: 'Autoavaliação de Sintomas',
+                icon: Icons.health_and_safety,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SymptomCheckScreen(),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -167,11 +206,11 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildOptionCard(
-      BuildContext context, {
-        required String title,
-        required IconData icon,
-        required VoidCallback onTap,
-      }) {
+    BuildContext context, {
+    required String title,
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Card(

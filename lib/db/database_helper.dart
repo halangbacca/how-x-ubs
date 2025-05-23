@@ -168,4 +168,19 @@ class DatabaseHelper {
       whereArgs: [date],
     );
   }
+
+  Future<Map<String, dynamic>?> getUserById(int id) async {
+    final db = await database;
+    final result = await db.query(
+      'users',
+      where: 'id = ?',
+      whereArgs: [id],
+      limit: 1,
+    );
+
+    if (result.isNotEmpty) {
+      return result.first;
+    }
+    return null;
+  }
 }
