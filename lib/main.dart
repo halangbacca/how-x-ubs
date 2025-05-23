@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:gestao_ubs/screens/health_services_screen.dart';
-import 'package:gestao_ubs/screens/health_unit_address_screen.dart';
-import 'package:gestao_ubs/screens/medications_screen.dart';
-import 'package:gestao_ubs/screens/vaccine_appointment_screen.dart';
+import 'package:ubs_plus/screens/health_services_screen.dart';
+import 'package:ubs_plus/screens/health_unit_address_screen.dart';
+import 'package:ubs_plus/screens/medications_screen.dart';
+import 'package:ubs_plus/screens/vaccine_appointment_screen.dart';
 import 'providers/auth_provider.dart';
 import 'screens/login_screen.dart';
 import 'screens/user_registration_screen.dart';

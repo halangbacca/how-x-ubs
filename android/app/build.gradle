@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.halan.gestao_ubs"
+    namespace = "com.halan.ubs_plus"
     compileSdk = flutter.compileSdkVersion
     ndkVersion "25.1.8937393"
 
@@ -20,7 +20,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.halan.gestao_ubs"
+        applicationId = "com.halan.ubs_plus"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
